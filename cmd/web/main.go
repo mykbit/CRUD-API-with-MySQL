@@ -8,11 +8,13 @@ import (
 	"os"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/mykbit/CRUD-API-with-MySQL/internal/models"
 )
 
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	vinyls   *models.VinylModel
 }
 
 func main() {
@@ -30,9 +32,16 @@ func main() {
 
 	defer db.Close()
 
+	app := &application{
+		errorLog: errorLog,
+		infoLog:  infoLog,
+		vinyls:   &models.VinylModel{DB: db},
+	}
+
 	srv := &http.Server{
 		Addr:     *addr,
 		ErrorLog: errorLog,
+		Handler:  app.routes(),
 	}
 
 	infoLog.Printf("Starting server on %s", *addr)
