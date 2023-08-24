@@ -6,10 +6,10 @@ import (
 )
 
 type Vinyl struct {
-	ID          int
-	Title       string
-	Description string
-	ReleaseDate time.Time
+	ID          int       `json:"ID"`
+	Title       string    `json:"Title"`
+	Description string    `json:"Description"`
+	ReleaseDate time.Time `json:"ReleaseDate"`
 }
 
 type VinylModel struct {
