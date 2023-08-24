@@ -1,15 +1,20 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/julienschmidt/httprouter"
+)
 
 func (app *application) routes() http.Handler {
-	mux := http.NewServeMux()
+	router := httprouter.New()
 
-	mux.HandleFunc("/", app.home)
-	mux.HandleFunc("/vinyl/view", app.vinylView)
-	mux.HandleFunc("/vinyl/add", app.vynilAdd)
-	mux.HandleFunc("/vinyl/edit", app.vinylUpdate)
-	mux.HandleFunc("/vinyl", app.vinylDelete).Methods("DELETE")
+	router.HandlerFunc(http.MethodGet, "/", app.home)
+	router.HandlerFunc(http.MethodGet, "/vinyl/view/:id", app.vinylView)
+	router.HandlerFunc(http.MethodGet, "/vinyl/add", app.vinylCreate)
+	router.HandlerFunc(http.MethodPost, "/vinyl/add", app.vinylCreatePost)
+	router.HandlerFunc(http.MethodPut, "/vinyl/edit", app.vinylUpdate)
+	router.HandlerFunc(http.MethodDelete, "/vinyl/:id", app.vinylDelete)
 
-	return mux
+	return router
 }
