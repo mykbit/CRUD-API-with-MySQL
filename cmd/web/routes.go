@@ -16,5 +16,5 @@ func (app *application) routes() http.Handler {
 	router.HandlerFunc(http.MethodPut, "/vinyl/edit", app.vinylUpdate)
 	router.HandlerFunc(http.MethodDelete, "/vinyl/:id", app.vinylDelete)
 
-	return router
+	return app.logRequest(secureHeaders(router))
 }
