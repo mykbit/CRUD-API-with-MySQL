@@ -85,7 +85,7 @@ func (app *application) vinylUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("Displaying the form for adding a new vinyl..."))
+	w.Write([]byte("Displaying the form for updating the vinyl..."))
 }
 
 func (app *application) vinylUpdatePost(w http.ResponseWriter, r *http.Request) {
